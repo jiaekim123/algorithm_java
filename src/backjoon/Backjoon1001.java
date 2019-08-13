@@ -4,7 +4,7 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-public class Main {
+public class Backjoon1001 {
 
      public static void main(String[] args) {
           Scanner in = new Scanner(System.in);
@@ -15,6 +15,7 @@ public class Main {
           int result;
           result = sub(a, b);
           System.out.println(result);
+          in.close();
      }
 
      

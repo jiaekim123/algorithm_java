@@ -1,10 +1,11 @@
+package backjoon;
 import java.io.*;
 import java.util.*;
 import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-public class Main {
+public class Backjoon1000 {
 
      public static void main(String[] args) {
           Scanner in = new Scanner(System.in);
@@ -15,6 +16,7 @@ public class Main {
           int sum;
           sum = solveMeFirst(a, b);
           System.out.println(sum);
+          in.close();
      }
 
      
