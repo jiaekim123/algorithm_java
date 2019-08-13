@@ -18,9 +18,8 @@ public class Backjoon1001 {
           in.close();
      }
 
-     
      public static int sub(int a, int b) {
-          return a-b;
+          return a - b;
      }
 
 }

@@ -1,4 +1,5 @@
 package backjoon;
+
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -19,9 +20,8 @@ public class Backjoon1000 {
           in.close();
      }
 
-     
      public static int solveMeFirst(int a, int b) {
-          return a+b;
+          return a + b;
      }
 
 }
