@@ -1,5 +1,3 @@
-package backjoon;
-
 public class Backjoon10718 {
 
     public static void main(String[] args) {

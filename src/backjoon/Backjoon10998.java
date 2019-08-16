@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Backjoon1000 {
+public class Backjoon10998 {
 
      public static void main(String[] args) {
           Scanner in = new Scanner(System.in);
@@ -9,13 +9,13 @@ public class Backjoon1000 {
           int b;
           b = in.nextInt();
           int sum;
-          sum = solveMeFirst(a, b);
+          sum = calculate(a, b);
           System.out.println(sum);
           in.close();
      }
 
-     public static int solveMeFirst(int a, int b) {
-          return a + b;
+     public static int calculate(int a, int b) {
+          return a * b;
      }
 
 }
