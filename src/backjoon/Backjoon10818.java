@@ -1,5 +1,5 @@
-// memory: 291328 kb
-// time: 1472 ms
+// memory: 292092 kb
+// time: 1400 ms
 import java.util.*;
 
 public class Backjoon10818{
@@ -12,8 +12,6 @@ public class Backjoon10818{
         for(int i = 0 ; i <count ; i++){
             data[i] = scanner.nextInt();
              
-        }
-        for(int i = 0; i<count ; i++){
             if(data[i]>max){
                 max = data[i];
             } 
