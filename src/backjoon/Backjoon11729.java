@@ -27,9 +27,9 @@ public class Backjoon11729 {
             bw.write(Integer.toString((int)Math.pow(2, number)-1)+"\n");
             hanoi(number, 1, 3);
 
-        bw.flush();
-        br.close();
-        bw.close();
+            bw.flush();
+            br.close();
+            bw.close();
         } catch (IOException e){
             e.printStackTrace();
         }   
