@@ -1,4 +1,8 @@
+package hash;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -8,31 +12,35 @@ import java.util.Set;
 
  class Solution {
     public static String solution(String[] participant, String[] completion) {
-        Set<String> playerSet = new HashSet<String>();
-        Set<String> participantSet = new HashSet<String>();
-        String duplicationPlayer = null;
+        Map<String, Integer> completionMap = new HashMap<String, Integer>();
+        Map<String, Integer> participantMap = new HashMap<String, Integer>();
         String answer = null;        
 
         for(String player : completion){
-            playerSet.add(player);
+        	if(completionMap.get(player)==null) {
+            	completionMap.put(player, 1);
+        	} else {
+        		completionMap.put(player, completionMap.get(player)+1);
+        	}
         }
 
         for(String player : participant){
-        	if(!participantSet.contains(player)) {
-        		participantSet.add(player);	
+        	if(participantMap.get(player)==null) {
+        		participantMap.put(player, 1);
         	} else {
-        		duplicationPlayer = player;
+        		participantMap.put(player, participantMap.get(player)+1);
         	}
-            if(!playerSet.contains(player)){
-                answer = player;
-            }
         }
-        if(answer == null && duplicationPlayer !=null) {
-        	return duplicationPlayer;
-        } else {
-        	System.out.println("wrong input");
+        
+        for(Entry<String, Integer> player: participantMap.entrySet()) {
+        	if(completionMap.get(player.getKey())!=
+        			participantMap.get(player.getKey())){
+        		answer = player.getKey();
+        		return answer;
+        	}
         }
         return answer;
+
     }
     public static void main(String[] args) {
     	String[] participant = {"mislav", "stanko", "mislav", "ana"};
