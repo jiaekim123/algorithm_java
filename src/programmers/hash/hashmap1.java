@@ -1,9 +1,7 @@
 package hash;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  *  Programers - Hash
@@ -11,40 +9,38 @@ import java.util.Set;
  */
 
  class Solution {
-    public static String solution(String[] participant, String[] completion) {
-        Map<String, Integer> completionMap = new HashMap<String, Integer>();
-        Map<String, Integer> participantMap = new HashMap<String, Integer>();
-        String answer = null;        
+ 	private final static String failed_message = "FAILED";
+	 public static String solution(String[] participant, String[] completion) {
 
-        for(String player : completion){
-        	if(completionMap.get(player)==null) {
-            	completionMap.put(player, 1);
-        	} else {
-        		completionMap.put(player, completionMap.get(player)+1);
-        	}
-        }
+        Map<String, Integer> participantMap = new HashMap<String, Integer>();
 
         for(String player : participant){
         	if(participantMap.get(player)==null) {
         		participantMap.put(player, 1);
         	} else {
-        		participantMap.put(player, participantMap.get(player)+1);
+        		participantMap.replace(player, participantMap.get(player)+1);
+        	}
+        }
+
+        for(String player : completion){
+        	if(participantMap.get(player)==1) {
+            	participantMap.remove(player);        		
+        	} else {
+        		participantMap.replace(player, participantMap.get(player)-1);
         	}
         }
         
-        for(Entry<String, Integer> player: participantMap.entrySet()) {
-        	if(completionMap.get(player.getKey())!=
-        			participantMap.get(player.getKey())){
-        		answer = player.getKey();
-        		return answer;
-        	}
+        for(Entry<String, Integer> entry :participantMap.entrySet()) {
+        	return entry.getKey();
         }
-        return answer;
+        
+        return failed_message;
+        
 
     }
     public static void main(String[] args) {
-    	String[] participant = {"mislav", "stanko", "mislav", "ana"};
-    	String[] completion = {"stanko", "ana", "mislav"};
+    	String[] participant = {"mislav", "mislav", "mislav", "ana"};
+    	String[] completion = {"ana", "mislav", "mislav"};
     	System.out.print(solution(participant, completion));
 	}
 }
