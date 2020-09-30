@@ -1,3 +1,4 @@
+package backjoon;
 import java.util.*;
 
 public class Backjoon2562 {

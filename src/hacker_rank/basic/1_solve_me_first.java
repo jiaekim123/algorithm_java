@@ -1,10 +1,11 @@
+package hacker_rank.basic;
 import java.io.*;
 import java.util.*;
 import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
  
     static int solveMeFirst(int a, int b) {

@@ -1,3 +1,4 @@
+package backjoon;
 // memory: 292092 kb
 // time: 1400 ms
 import java.util.*;

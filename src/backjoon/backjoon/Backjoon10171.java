@@ -1,3 +1,4 @@
+package backjoon;
 public class Backjoon10171 {
 
     public static void main(String[] args) {

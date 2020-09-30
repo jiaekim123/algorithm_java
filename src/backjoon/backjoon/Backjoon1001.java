@@ -1,6 +1,7 @@
+package backjoon;
 import java.util.*;
 
-public class Backjoon1000 {
+public class Backjoon1001 {
 
      public static void main(String[] args) {
           Scanner in = new Scanner(System.in);
@@ -8,14 +9,14 @@ public class Backjoon1000 {
           a = in.nextInt();
           int b;
           b = in.nextInt();
-          int sum;
-          sum = solveMeFirst(a, b);
-          System.out.println(sum);
+          int result;
+          result = sub(a, b);
+          System.out.println(result);
           in.close();
      }
 
-     public static int solveMeFirst(int a, int b) {
-          return a + b;
+     public static int sub(int a, int b) {
+          return a - b;
      }
 
 }
