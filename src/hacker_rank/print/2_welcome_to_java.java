@@ -1,4 +1,4 @@
-package hacker_rank.print;
+package print;
 import java.io.* ;
 
 class Solution {
