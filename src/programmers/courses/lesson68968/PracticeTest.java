@@ -8,14 +8,21 @@ class Solution {
 	private final int[][] pattern = { { 1, 2, 3, 4, 5 }, { 2, 1, 2, 3, 2, 4, 2, 5 }, { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 } };
 	public int[] solution(int[] answers) {
         List<Student> studentList = new ArrayList<Student>();
-        for (int i = 1; i<=3 ; i++) {
-            studentList.add(new Student(i, answers, pattern[i-1]));
+        for (int i = 1; i<=pattern.length ; i++) {
+        	studentList.add(new Student(i, pattern[i-1]));
         }
-        return getHighScoreStudent(studentList);
+        return getHighScoreStudent(studentList, answers);
     }
 	
-	private int[] getHighScoreStudent(List<Student> studentList) {
+	private int[] getHighScoreStudent(List<Student> studentList, int[] answers) {
 		List<Integer> highScoreStudentList = new ArrayList<Integer>();
+		
+		for (int i = 0; i<studentList.size(); i++) {
+			Student student = studentList.get(i);
+			student.countStudentScore(answers);
+			studentList.set(i, student);
+		}
+		
 		Collections.sort(studentList);
 		int maxScore = 0;
 		for (int i = 0; i <studentList.size(); i++) {
@@ -42,25 +49,25 @@ class Student implements Comparable<Student>{
 	private int studentId;
 	private int score;
 	private int[] answer;
+	private int[] pattern;
 	
-	public Student(int studentId, int[] answer, int[] pattern) {
+	public Student(int studentId, int[] pattern) {
 		this.score = 0;
 		this.studentId = studentId;
-		this.answer = new int[answer.length];
-		setStudentAnswer(pattern);
-		countStudentScore(answer);
-	}
-
-	public void setStudentAnswer(int[] pattern) {
-		for (int i = 0; i < answer.length; i++) {
-			answer[i] = pattern[i % pattern.length];
-		}
+		this.pattern = pattern;
 	}
 
 	public void countStudentScore(int[] answer) {
-		for (int i = 0; i < answer.length; i++) {
+		int length = answer.length;
+		this.answer = new int[length];
+		
+		for (int i = 0; i < length; i++) {
+			this.answer[i] = pattern[i % pattern.length];
+		}
+		
+		for (int i = 0; i < length; i++) {
 			if (this.answer[i] == answer[i]) {
-				score++;				
+				this.score++;
 			}
 		}
 	}

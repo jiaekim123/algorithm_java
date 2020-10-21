@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+	private final int LENGTH = 3;
     public int solution(int[] nums) {
         int answer = 0;
         
         List<int[]> numList = getNumList(nums);
-        
         for (int[] numArr : numList) {
-        	for (int i = 0; i <numArr.length; i++) {
-        		System.out.print(numArr[i] + " ");
-        	}
-        	System.out.println();
         	if (isPrimeNum(numArr)) answer++;
         }
         
@@ -22,8 +18,7 @@ class Solution {
     private List<int[]> getNumList(int[] nums) {
     	List<int[]> numList = new ArrayList<int[]>();
     	boolean[] visited = new boolean[nums.length];
-//    	combination(nums, numList, visited, 0, nums.length, 3);
-//    	System.out.println(numList);
+    	combination(nums, visited, 0, nums.length, LENGTH, numList);
     	return numList;
     }
     
@@ -32,7 +27,6 @@ class Solution {
     	for (int num: numArr) {
     		primeNum += num;
     	}
-    	System.out.println(primeNum);
     	if (primeNum == 0 || primeNum == 1) return false;
     	else if (primeNum == 2) return true;
     	
@@ -43,12 +37,38 @@ class Solution {
     	return true;
     }
     
+    private void combination(int[] nums, boolean[] visited, int start, int n, int r, List<int[]> numList) {
+    	if (r == 0) {
+    		int[] numArr = makeNumberArr(visited, nums, n);
+    		numList.add(numArr);
+    		return;
+    	}
+    	
+		for (int i = start; i < n; i++) {
+			visited[i] = true;
+			combination(nums, visited, i+1, n, r-1, numList);
+			visited[i] = false;
+    	}
+    }
+    
+    private int[] makeNumberArr(boolean[] visited, int[] nums, int n) {
+		int count = 0;
+		int[] numArr = new int[LENGTH];
+		for (int i = 0; i<n; i++) {
+			if (visited[i]) {
+				numArr[count] = nums[i];
+    			count++;
+			}
+		}
+		return numArr;
+    }
 }
 
 public class MinorityNum {
 
 	public static void main(String[] args) {
 		System.out.println(new Solution().solution(new int[] {1,2,3,4}));
+		System.out.println(new Solution().solution(new int[] {1,2,7,6,4}));
 	}
 
 }
