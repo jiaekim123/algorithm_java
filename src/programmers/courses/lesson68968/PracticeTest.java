@@ -20,7 +20,6 @@ class Solution {
 		for (int i = 0; i<studentList.size(); i++) {
 			Student student = studentList.get(i);
 			student.countStudentScore(answers);
-			studentList.set(i, student);
 		}
 		
 		Collections.sort(studentList);
@@ -48,7 +47,6 @@ class Solution {
 class Student implements Comparable<Student>{
 	private int studentId;
 	private int score;
-	private int[] answer;
 	private int[] pattern;
 	
 	public Student(int studentId, int[] pattern) {
@@ -58,15 +56,8 @@ class Student implements Comparable<Student>{
 	}
 
 	public void countStudentScore(int[] answer) {
-		int length = answer.length;
-		this.answer = new int[length];
-		
-		for (int i = 0; i < length; i++) {
-			this.answer[i] = pattern[i % pattern.length];
-		}
-		
-		for (int i = 0; i < length; i++) {
-			if (this.answer[i] == answer[i]) {
+		for (int i = 0; i < answer.length; i++) {
+			if (pattern[i % pattern.length] == answer[i]) {
 				this.score++;
 			}
 		}

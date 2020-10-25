@@ -10,7 +10,7 @@ class Solution {
         
         List<int[]> numList = getNumList(nums);
         for (int[] numArr : numList) {
-        	if (isPrimeNum(numArr)) answer++;
+        	if (isPrimeNum(sumArr(numArr))) answer++;
         }
         
         return answer;
@@ -21,17 +21,19 @@ class Solution {
     	combination(nums, visited, 0, nums.length, LENGTH, numList);
     	return numList;
     }
-    
-    private boolean isPrimeNum(int[] numArr) {
-    	int primeNum = 0;
+    private int sumArr(int[] numArr) {
+    	int sum = 0;
     	for (int num: numArr) {
-    		primeNum += num;
+    		sum += num;
     	}
-    	if (primeNum == 0 || primeNum == 1) return false;
-    	else if (primeNum == 2) return true;
+    	return sum;
+    }
+    private boolean isPrimeNum(int num) {
+    	if (num == 0 || num == 1) return false;
+    	else if (num == 2) return true;
     	
-    	for (int i=2; i<primeNum; i++) {
-    		if(primeNum%i==0) return false;
+    	for (int i=2; i<num; i++) {
+    		if(num%i==0) return false;
     	}
     	
     	return true;

@@ -1,22 +1,18 @@
 package courses.lesson68972;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 class Solution {
     public int[] solution(int[] array, int[][] commands) {
-        List<Integer> answerList = new ArrayList<Integer>();
-        for (int[] command : commands) {
-        	int[] intArr = Arrays.copyOfRange(array, command[0]-1, command[1]);
+    	int[] answer = new int[commands.length];
+        
+    	for (int i = 0; i<commands.length; i++) {
+        	int[] intArr = Arrays.copyOfRange(array, commands[i][0]-1, commands[i][1]);
         	Arrays.sort(intArr);
-        	answerList.add(intArr[command[2]-1]);
+        	answer[i] = intArr[commands[i][2]-1];
         }
-        int[] answer = new int[answerList.size()];
-        for (int i = 0; i<answer.length; i++) {
-        	answer[i] = answerList.get(i);
-        }
-        return answer;
+
+    	return answer;
     }
 }
 
