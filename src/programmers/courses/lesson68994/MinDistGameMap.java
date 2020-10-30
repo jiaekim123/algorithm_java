@@ -20,25 +20,24 @@ class Solution {
 		count++;
 		if (y == map.length - 1 && x == map[0].length - 1) {
 			countQueue.offer(count);
-			count = 0;
 			return;
 		} else {
 			visited[y][x] = true;
 			if (y < map.length - 1 && map[y + 1][x] == 1 && visited[y + 1][x] == false && d != direction.UP) {
 				bfs(map, visited, x, y + 1, countQueue, count, direction.DOWN);
-				visited[x][y] = false;
+				visited[y][x] = false;
 			}
 			if (x < map[0].length - 1 && map[y][x + 1] == 1 && visited[y][x + 1] == false && d != direction.LEFT) {
 				bfs(map, visited, x + 1, y, countQueue, count, direction.RIGHT);
-				visited[x][y] = false;
+				visited[y][x] = false;
 			}
 			if (x > 0 && map[y][x - 1] == 1 && visited[y][x - 1] == false && d != direction.RIGHT) {
 				bfs(map, visited, x - 1, y, countQueue, count, direction.LEFT);
-				visited[x][y] = false;
+				visited[y][x] = false;
 			}
 			if (y > 0 && map[y - 1][x] == 1 && visited[y - 1][x] == false && d != direction.DOWN) {
 				bfs(map, visited, x, y - 1, countQueue, count, direction.UP);
-				visited[x][y] = false;
+				visited[y][x] = false;
 			}
 		}
 	}
