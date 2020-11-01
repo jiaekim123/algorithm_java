@@ -1,36 +1,33 @@
 package courses.lesson68989;
 
-import java.util.Arrays;
+import java.util.PriorityQueue;
 
 class Solution {
 	public int solution(int[] scoville, int K) {
-		int answer = 0;
-		while (true) {
-			if ((scoville = mixScovile(scoville, K)) == null) {
-				break;
-			}
-			answer++;
-		}
-		return answer;
-	}
-
-	private int[] mixScovile(int[] scoville, int K) {
-		int[] newScoville = new int[scoville.length - 1];
-		Arrays.sort(scoville);
-		if (scoville[0] >= K) {
-			return null;		
+		PriorityQueue<Integer> scovilleQueue = new PriorityQueue<Integer>();
+		for (int num : scoville) {
+			scovilleQueue.offer(num);
 		}
 		
-		newScoville[0] = scoville[0] + (scoville[1] * 2);
-		for (int i = 1; i < newScoville.length; i++) {
-			newScoville[i] = scoville[i + 1];
+		return mixScovile(scovilleQueue, K);
+	}
+
+	private int mixScovile(PriorityQueue<Integer> scovilleQueue, int K) {
+		int count = 0;
+		while (true) {
+			if (scovilleQueue.peek() > K) break;
+			if (scovilleQueue.size() < 2) return -1;
+			scovilleQueue.offer(scovilleQueue.poll() + (scovilleQueue.poll() * 2));
+			count++;
 		}
-		return newScoville;
+		
+		return count;
 	}
 }
 
 public class MoreSpicy {
 	public static void main(String[] args) {
 		System.out.println(new Solution().solution(new int[] { 1, 2, 3, 9, 10, 12 }, 7));
+		System.out.println(new Solution().solution(new int[] { 1, 1, 1 }, 7));
 	}
 }
