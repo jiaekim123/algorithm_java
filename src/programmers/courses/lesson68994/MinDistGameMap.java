@@ -1,49 +1,73 @@
 package courses.lesson68994;
 
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 class Solution {
 	public int solution(int[][] maps) {
-		Queue<Integer> countQueue = new PriorityQueue<Integer>();
 		boolean[][] visited = new boolean[maps.length][maps[0].length];
-		bfs(maps, visited, 0, 0, countQueue, 0, direction.START);
-		if (countQueue.isEmpty()) {
-			return -1;
-		} else {
-			return countQueue.peek();
+		return bfs(maps, visited, new Point(0, 0, 0), maps[0].length - 1, maps.length - 1);
+	}
+
+	private int bfs(int[][] map, boolean[][] visited, Point point, int row, int col) {
+		Queue<Point> queue = new LinkedList<Point>();
+		queue.offer(point);
+		while (!queue.isEmpty()) {
+			Point now = queue.poll();
+			if (now.y == map.length - 1 && now.x == map[0].length - 1) {
+				return now.distance + 1;
+			} else {
+				for (Direction direction : Direction.values()) {
+					if (now.checkDirection(map, visited, row, col, direction)) {
+						Point newPoint = now.move(direction);
+						visited[newPoint.y][newPoint.x] = true;
+						queue.offer(newPoint);
+					}
+				}
+			}
+		}
+
+		return -1;
+	}
+
+	class Point {
+		int x;
+		int y;
+		int distance;
+
+		public Point(int x, int y, int distance) {
+			this.x = x;
+			this.y = y;
+			this.distance = distance;
+		}
+
+		public Point move(Direction direction) {
+			return new Point(this.x + direction.x, this.y + direction.y, this.distance + 1);
+		}
+
+		public boolean checkDirection(int[][] map, boolean[][] visited, int row, int col, Direction direction) {
+			int posX = this.x + direction.x;
+			int posY = this.y + direction.y;
+			if (posX < 0 || posX > row || posY < 0 || posY > col) {
+				return false;
+			} else {
+				if (visited[posY][posX] || (map[posY][posX] == 0) )
+					return false;
+			}
+			return true;
 		}
 	}
 
-	private void bfs(int[][] map, boolean[][] visited, int x, int y, Queue<Integer> countQueue, int count,
-			direction d) {
-		count++;
-		if (y == map.length - 1 && x == map[0].length - 1) {
-			countQueue.offer(count);
-			return;
-		} else {
-			visited[y][x] = true;
-			if (y < map.length - 1 && map[y + 1][x] == 1 && visited[y + 1][x] == false && d != direction.UP) {
-				bfs(map, visited, x, y + 1, countQueue, count, direction.DOWN);
-				visited[y][x] = false;
-			}
-			if (x < map[0].length - 1 && map[y][x + 1] == 1 && visited[y][x + 1] == false && d != direction.LEFT) {
-				bfs(map, visited, x + 1, y, countQueue, count, direction.RIGHT);
-				visited[y][x] = false;
-			}
-			if (x > 0 && map[y][x - 1] == 1 && visited[y][x - 1] == false && d != direction.RIGHT) {
-				bfs(map, visited, x - 1, y, countQueue, count, direction.LEFT);
-				visited[y][x] = false;
-			}
-			if (y > 0 && map[y - 1][x] == 1 && visited[y - 1][x] == false && d != direction.DOWN) {
-				bfs(map, visited, x, y - 1, countQueue, count, direction.UP);
-				visited[y][x] = false;
-			}
-		}
-	}
+	enum Direction {
+		RIGHT(1, 0), LEFT(-1, 0), UP(0, 1), DOWN(0, -1), START(0, 0);
+		int x;
+		int y;
 
-	enum direction {
-		RIGHT, LEFT, UP, DOWN, START;
+		Direction(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
 	}
 }
 
@@ -53,11 +77,11 @@ public class MinDistGameMap {
 		System.out.println(new Solution().solution(new int[][] { { 1, 0, 1, 1, 1 }, { 1, 0, 1, 0, 1 },
 				{ 1, 0, 1, 1, 1 }, { 1, 1, 1, 0, 1 }, { 0, 0, 0, 0, 1 } }));
 		System.out.println(new Solution().solution(new int[][] { { 1, 0, 1, 1, 1 }, { 1, 0, 1, 0, 1 },
-			{ 1, 0, 1, 0, 1 }, { 1, 1, 1, 0, 1 }, { 0, 0, 0, 0, 1 } }));
-		System.out.println(new Solution().solution(new int[][] { { 1, 0, 1, 0, 1 }, { 1, 0, 1, 0, 1 },
-			{ 1, 0, 1, 0, 1 }, { 1, 1, 1, 0, 1 }, { 0, 0, 0, 0, 1 } }));
-		System.out.println(new Solution().solution(new int[][] { { 1, 1, 1, 1, 1 }, { 0, 0, 0, 0, 1 },
-			{ 1, 1, 1, 1, 1 }, { 1, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1 } }));
+				{ 1, 0, 1, 1, 1 }, { 1, 1, 1, 0, 0 }, { 0, 0, 0, 0, 1 } }));
+//		System.out.println(new Solution().solution(new int[][] { { 1, 0, 1, 0, 1 }, { 1, 0, 1, 0, 1 },
+//				{ 1, 0, 1, 0, 1 }, { 1, 1, 1, 0, 1 }, { 0, 0, 0, 0, 1 } }));
+//		System.out.println(new Solution().solution(new int[][] { { 1, 1, 1, 1, 1 }, { 0, 0, 0, 0, 1 },
+//				{ 1, 1, 1, 1, 1 }, { 1, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1 } }));
 
 	}
 
