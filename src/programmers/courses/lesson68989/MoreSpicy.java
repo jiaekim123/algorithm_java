@@ -1,4 +1,5 @@
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 class Solution {
 	public int solution(int[] scoville, int K) {
@@ -10,19 +11,15 @@ class Solution {
 		return mixScovile(scovilleQueue, K);
 	}
 
-	private int mixScovile(PriorityQueue<Integer> scovilleQueue, int K) {
+	private int mixScovile(Queue<Integer> scovilleQueue, int K) {
 		int count = 0;
-		while (true) {
-			if (scovilleQueue.peek() > K) {
-				break;
-			}
+		while (scovilleQueue.peek() <= K) {
 			if (scovilleQueue.size() < 2) {
 				return -1;
 			}
 			scovilleQueue.offer(scovilleQueue.poll() + (scovilleQueue.poll() * 2));
 			count++;
 		}
-
 		return count;
 	}
 }
