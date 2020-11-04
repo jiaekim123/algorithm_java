@@ -39,14 +39,15 @@ class Solution {
 		}
 		return true;
 	}
+
 	private boolean isOneWordDiff(char[] word, char[] compWord) {
 		int count = 0;
-		for (int i = 0; i < word.length; i++) {
+		for (int i = 0; i < word.length && count < 2; i++) {
 			if (word[i] != compWord[i]) {
 				count++;
 			}
 		}
-		return count == 1 ? true : false;
+		return count == 1;
 	}
 }
 
