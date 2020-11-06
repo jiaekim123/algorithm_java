@@ -16,7 +16,7 @@ class Solution {
 			developQueue.offer(new Integer[] { progresses[i], speeds[i] });
 		}
 
-		for (int day = 1;; day++) {
+		for (int day = 1;!developQueue.isEmpty(); day++) {
 			int distributeNum = 0;
 			while (!developQueue.isEmpty()
 					&& day * developQueue.peek()[SPEED] >= (100 - developQueue.peek()[PROGRESS])) {
@@ -25,9 +25,6 @@ class Solution {
 			}
 			if (distributeNum > 0) {
 				answerList.add(distributeNum);
-			}
-			if (developQueue.isEmpty()) {
-				break;
 			}
 		}
 		int[] answer = new int[answerList.size()];
