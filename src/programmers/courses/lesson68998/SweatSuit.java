@@ -1,4 +1,4 @@
-package cources.lesson68998;
+package courses.lesson68998;
 
 class Solution {
 	public int solution(int n, int[] lost, int[] reserve) {
