@@ -18,19 +18,22 @@ class Solution {
 	}
 
 	private void dfs(char[] word, char[] target, boolean[] visited, char[][] words, int count, Queue<Integer> answerList) {
-		if (!isAllVisited(visited)) {
-			if (Arrays.equals(word, target)) {
-				answerList.offer(count);
-			} else {
-				for (int i = 0; i < words.length; i++) {
-					if (!visited[i] && isOneWordDiff(word,words[i])) {
-						visited[i] = true;
-						dfs(words[i], target, visited, words, count + 1, answerList);
-						visited[i] = false;
-					}
-				}
-			}	
-		}	
+		if (isAllVisited(visited)) {
+			return;
+		}
+		if (Arrays.equals(word, target)) {
+			answerList.offer(count);
+			return;
+		} 
+
+		for (int i = 0; i < words.length; i++) {
+			if (!visited[i] && isOneWordDiff(word, words[i])) {
+				visited[i] = true;
+				dfs(words[i], target, visited, words, count + 1, answerList);
+				visited[i] = false;
+			}
+		}
+
 	}
 
 	private boolean isAllVisited(boolean[] visited) {
@@ -41,7 +44,7 @@ class Solution {
 	}
 	private boolean isOneWordDiff(char[] word, char[] compWord) {
 		int count = 0;
-		for (int i = 0; i < word.length; i++) {
+		for (int i = 0; i < word.length && count < 2; i++) {
 			if (word[i] != compWord[i]) {
 				count++;
 			}
