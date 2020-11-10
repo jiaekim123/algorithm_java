@@ -1,50 +1,32 @@
 package courses.lesson68998;
 
+import java.util.Arrays;
+
 class Solution {
 	public int solution(int n, int[] lost, int[] reserve) {
-		int answer = 0;
+		int[] students = new int[n];
+		Arrays.fill(students, 1); // 체육복이 하나 있는 상태로 초기화
 
-		// student의 체육복 상태를 저장하는 배열을 만든다.
-		status[] students = new status[n];
-		for (status student : students) {
-			student = status.ONE;
-		}
-		for (int i = 0; i < reserve.length; i++) {
-			students[reserve[i] - 1] = status.MORE;
-		}
-
-		// 체육복을 도둑맞아 없는 학생을 저장한다. 만약 많은 학생이 도둑맞았으면 ONE으로 변경한다.
-		for (int i = 0; i < lost.length; i++) {
-			if (students[lost[i] - 1] == status.MORE) {
-				students[lost[i] - 1] = status.ONE;
-			} else {
-				students[lost[i] - 1] = status.NO;
-			}
-		}
-
-		// 체육복을 빌려줄 수 있는 학생은 -1번째, +1번째 학생의 체육복이 없을 때 빌려준다.
+		// 체육복이 있는 친구와 없는 친구 초기화
+		Arrays.stream(reserve).forEach(num -> students[num -1] += 1);
+		Arrays.stream(lost).forEach(num -> students[num -1] -= 1);
+		
+		// 체육복 있는 친구의 나누미 활동
 		for (int i = 0; i < n; i++) {
-			if (students[i] == status.MORE) {
-				if (i > 0 && students[i - 1] == status.NO) {
-					students[i] = status.ONE;
-					students[i - 1] = status.ONE;
-				} else if (i < n - 1 && students[i + 1] == status.NO) {
-					students[i] = status.ONE;
-					students[i + 1] = status.ONE;
-				}
+			if (students[i] > 0) {
+				continue;
+			}
+			if (i > 0 && students[i - 1] > 1) {
+				students[i - 1] -= 1;
+				students[i] += 1;
+			}
+			if (i < n - 1 && students[i + 1] > 1) {
+				students[i + 1] -= 1;
+				students[i] += 1;
 			}
 		}
-
-		// 체육복이 있는 학생의 수를 반환한다.
-		for (status student : students) {
-			if (student != status.NO)
-				answer++;
-		}
-		return answer;
-	}
-
-	enum status {
-		ONE, MORE, NO;
+		
+		return (int) Arrays.stream(students).filter(i -> i > 0).count();
 	}
 }
 
