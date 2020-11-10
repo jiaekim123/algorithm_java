@@ -1,14 +1,10 @@
 package courses.lesson69000;
 
-import java.util.Collections;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 class Solution {
 	public int solution(int[][] triangle) {
-		Queue<Integer> answers = new PriorityQueue<>(Collections.reverseOrder());
-//		dfs(triangle, 0, 0, 0, 0, answers);
-		return dp(triangle);
+		return reverseDP(triangle);
 	}
 
 	public void dfs(int[][] triangle, int num, int row, int col, int depth, Queue<Integer> answers) {
@@ -42,6 +38,26 @@ class Solution {
 				answer = max[row - 1][j];
 		}
 		return answer;
+	}
+	
+	public int reverseDP(int[][] triangle) {
+		int row = triangle.length;
+		int col = triangle[triangle.length - 1].length;
+		int[][] max = new int[row][col];
+		
+		// 맨 밑행 초기화
+		for (int j = 0; j < col; j++) {
+			max[row-1][j] = triangle[row-1][j];
+		}
+		
+		// 밑행부터 올라가면서 최대값 구하기
+		for (int i = row-2; i >= 0; i--) {
+			for (int j = 0; j <= i; j++) {
+				max[i][j] = Math.max(max[i+1][j], max[i+1][j+1]) + triangle[i][j];				
+			}
+		}
+		
+		return max[0][0];
 	}
 }
 
